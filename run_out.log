@@ -1,0 +1,2 @@
+C:\AssinadorDigital\AssinadorDigital_Cod_Fonte\AssinadorDigital.csproj : warning NU1510: PackageReference System.Security.Cryptography.ProtectedData não será removido. Este pacote está disponível automaticamente e não precisa ser referenciado explicitamente. Remova o item PackageReference.
+C:\AssinadorDigital\AssinadorDigital_Cod_Fonte\AssinadorDigital.csproj : warning NU1510: PackageReference System.Security.Cryptography.ProtectedData não será removido. Este pacote está disponível automaticamente e não precisa ser referenciado explicitamente. Remova o item PackageReference.

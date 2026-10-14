@@ -1,0 +1,428 @@
+<Window x:Class="AssinadorDigital.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AssinadorDigital"
+        mc:Ignorable="d"
+        Title="Assinador Digital" Height="700" Width="520"
+        Icon="app.ico"
+        MinHeight="560" MinWidth="460"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="Accent" Color="#0067C0"/>
+        <SolidColorBrush x:Key="TextMuted" Color="#8A8F99"/>
+        <SolidColorBrush x:Key="CardBg" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="Success" Color="#1F9254"/>
+        <SolidColorBrush x:Key="Warning" Color="#C78A1E"/>
+        <SolidColorBrush x:Key="Danger" Color="#D64545"/>
+
+        <Style x:Key="TitleBarButton" TargetType="Button">
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="#6B7280"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#14000000"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource Accent}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#1578D4"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="bd" Property="Background" Value="#C7CCD6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SecondaryButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource Accent}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="12.5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="16,7"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#1578D4"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BrowseButton" TargetType="Button">
+            <Setter Property="Background" Value="#EEF1F6"/>
+            <Setter Property="Foreground" Value="#3A3F4B"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Width" Value="34"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="7">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#E2E6EE"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="LinkButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource Accent}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="11.5"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <TextBlock x:Name="tb" Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}"
+                                   FontSize="{TemplateBinding FontSize}" FontWeight="{TemplateBinding FontWeight}"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="tb" Property="TextDecorations" Value="Underline"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="GhostButton" TargetType="Button">
+            <Setter Property="Background" Value="#EEF1F6"/>
+            <Setter Property="Foreground" Value="#3A3F4B"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="12,7"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#E2E6EE"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border CornerRadius="12" Background="#F6F8FC" BorderBrush="#D9DEE8" BorderThickness="1">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="18" ShadowDepth="4" Opacity="0.18" Color="#1B1B1F"/>
+        </Border.Effect>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Title bar -->
+            <Grid Grid.Row="0" Background="Transparent" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <DockPanel Margin="14,0,8,0">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" DockPanel.Dock="Left">
+                        <Border Width="24" Height="24" CornerRadius="6" ClipToBounds="True">
+                            <Image Source="app.ico" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Border>
+                        <TextBlock Text="Assinador Digital" FontWeight="SemiBold" FontSize="13" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Style="{StaticResource TitleBarButton}" Content="&#9881;" ToolTip="Configura&#231;&#245;es" Click="Config_Click" FontSize="14"/>
+                        <Button Style="{StaticResource TitleBarButton}" Content="&#8211;" Click="Minimize_Click"/>
+                        <Button Style="{StaticResource TitleBarButton}" Content="&#10005;" Click="Close_Click"/>
+                    </StackPanel>
+                </DockPanel>
+            </Grid>
+
+            <!-- Content -->
+            <Grid Grid.Row="1" Margin="16,4,16,8">
+                <StackPanel x:Name="MainPanel" Orientation="Vertical">
+
+                    <!-- Drop zone -->
+                    <Border Background="White" CornerRadius="12" BorderBrush="#EBEEF3" BorderThickness="1"
+                            Padding="20" AllowDrop="True" Drop="DropZone_Drop" DragOver="DropZone_DragOver">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="8" ShadowDepth="1" Opacity="0.06" Color="Black"/>
+                        </Border.Effect>
+                        <StackPanel HorizontalAlignment="Center">
+                            <Border Width="40" Height="40" CornerRadius="20" Background="#E8F1FC" HorizontalAlignment="Center">
+                                <Path Data="M12,3 L12,15 M12,15 L8,11 M12,15 L16,11 M4,16 L4,19 A2,2 0 0 0 6,21 L18,21 A2,2 0 0 0 20,19 L20,16"
+                                      Stroke="{StaticResource Accent}" StrokeThickness="2" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"
+                                      Width="24" Height="24" Stretch="Uniform"/>
+                            </Border>
+                            <TextBlock Text="Arraste os arquivos .exe aqui" FontSize="13" Foreground="#3A3F4B" Margin="0,8,0,2" HorizontalAlignment="Center"/>
+                            <TextBlock Text="ou" FontSize="11.5" Foreground="{StaticResource TextMuted}" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+                            <Button Content="Procurar arquivos" Style="{StaticResource SecondaryButton}" Click="Procurar_Click"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- File list -->
+                    <Border Background="White" CornerRadius="12" BorderBrush="#EBEEF3" BorderThickness="1"
+                            Padding="14,12" Margin="0,12,0,0" MaxHeight="220">
+                        <StackPanel>
+                            <TextBlock Text="ARQUIVOS" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource TextMuted}" Margin="0,0,0,6"/>
+                            <ScrollViewer MaxHeight="180" VerticalScrollBarVisibility="Auto">
+                                <ItemsControl x:Name="ArquivosList">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Margin="0,5">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Border Width="24" Height="24" CornerRadius="7" Background="#EEF1F6">
+                                                    <TextBlock Text="&#128196;" FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                                <TextBlock Grid.Column="1" Text="{Binding FileName}" FontSize="12.5" VerticalAlignment="Center" Margin="10,0" TextTrimming="CharacterEllipsis"/>
+                                                <TextBlock Grid.Column="2" Text="{Binding StatusText}" FontSize="11" FontWeight="SemiBold" VerticalAlignment="Center">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Foreground" Value="{StaticResource Warning}"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Status}" Value="Assinado">
+                                                                    <Setter Property="Foreground" Value="{StaticResource Success}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Status}" Value="Erro">
+                                                                    <Setter Property="Foreground" Value="{StaticResource Danger}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Status}" Value="Assinando">
+                                                                    <Setter Property="Foreground" Value="{StaticResource Accent}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                            <TextBlock x:Name="SemArquivosText" Text="Nenhum arquivo adicionado ainda." FontSize="12" Foreground="{StaticResource TextMuted}" Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Sign button -->
+                    <Button x:Name="AssinarBtn" Content="Assinar arquivos" Style="{StaticResource PrimaryButton}" FontSize="13.5"
+                            Margin="0,12,0,0" Click="Assinar_Click" IsEnabled="False">
+                        <Button.Effect>
+                            <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.25" Color="#0067C0"/>
+                        </Button.Effect>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <!-- Log + footer -->
+            <Grid Grid.Row="2" Margin="16,0,16,14">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="140"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Border Background="#161B22" CornerRadius="12" Padding="12,10">
+                    <DockPanel>
+                        <TextBlock Text="REGISTRO" DockPanel.Dock="Top" FontSize="10" FontWeight="SemiBold" Foreground="#9BA3AF" Margin="0,0,0,6"/>
+                        <ScrollViewer x:Name="LogScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                            <ItemsControl x:Name="LogList">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Texto}" Foreground="{Binding Cor}" FontFamily="Cascadia Mono, Consolas" FontSize="11" Margin="0,1" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </DockPanel>
+                </Border>
+
+                <StackPanel Grid.Row="1" Margin="2,10,2,0">
+                    <DockPanel>
+                        <TextBlock x:Name="CertificadoNomeText" Text="Certificado: API Systems" FontSize="11" Foreground="{StaticResource TextMuted}" DockPanel.Dock="Left"/>
+                        <TextBlock x:Name="CertificadoValidadeText" Text="" FontSize="11" Foreground="{StaticResource TextMuted}" HorizontalAlignment="Right"/>
+                    </DockPanel>
+                    <TextBlock x:Name="StatusRodape" Text="Pronto." FontSize="11" Foreground="{StaticResource TextMuted}" HorizontalAlignment="Right" Margin="0,3,0,0"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- First-run / settings overlay: cobre a janela inteira (barra de titulo + conteudo + log) -->
+            <Border x:Name="ConfigOverlay" Grid.Row="0" Grid.RowSpan="3" CornerRadius="12"
+                    Background="#B3161B22" Visibility="Collapsed">
+                <Border Background="White" CornerRadius="14" Padding="22,20" MaxWidth="420"
+                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="24" ShadowDepth="6" Opacity="0.25" Color="#000000"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <TextBlock Text="Configura&#231;&#227;o" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,2"/>
+                        <TextBlock x:Name="ConfigSubtitulo" Text="Primeira vez nesta m&#225;quina - configure o certificado." FontSize="12" Foreground="{StaticResource TextMuted}" Margin="0,0,0,14" TextWrapping="Wrap"/>
+
+                        <TextBlock Text="Caminho do signtool.exe" FontSize="11.5" Foreground="{StaticResource TextMuted}" Margin="0,0,0,4"/>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="SignToolPathBox" Grid.Column="0" Padding="8,7" FontSize="12" BorderBrush="#D9DEE8" Margin="0,0,6,0"/>
+                            <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Click="ProcurarSignTool_Click"/>
+                        </Grid>
+
+                        <TextBlock Text="Caminho do certificado (.pfx)" FontSize="11.5" Foreground="{StaticResource TextMuted}" Margin="0,0,0,4"/>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+            <TextBox x:Name="PfxPathBox" Grid.Column="0" Padding="8,7" FontSize="12" BorderBrush="#D9DEE8" Margin="0,0,6,0"/>
+                            <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Click="ProcurarPfx_Click"/>
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                            <Button Content="Criar certificado novo..." Style="{StaticResource LinkButton}" Margin="0,0,16,0" Click="AbrirCriarCertificado_Click"/>
+                            <Button Content="Confiar neste certificado..." Style="{StaticResource LinkButton}" Click="ConfiarCertificado_Click"/>
+                        </StackPanel>
+
+                        <TextBlock Text="URL do timestamp" FontSize="11.5" Foreground="{StaticResource TextMuted}" Margin="0,0,0,4"/>
+                        <TextBox x:Name="TimestampUrlBox" Padding="8,7" FontSize="12" BorderBrush="#D9DEE8" Margin="0,0,0,10"/>
+
+                        <TextBlock Text="Senha do certificado" FontSize="11.5" Foreground="{StaticResource TextMuted}" Margin="0,0,0,4"/>
+                        <PasswordBox x:Name="SenhaBox" Padding="8,7" FontSize="12" BorderBrush="#D9DEE8" Margin="0,0,0,2" PasswordChanged="SenhaBox_PasswordChanged"/>
+                        <TextBlock x:Name="SenhaDica" FontSize="10.5" Foreground="{StaticResource TextMuted}" Margin="0,0,0,10" TextWrapping="Wrap"/>
+
+                        <TextBlock x:Name="ConfigErro" Foreground="{StaticResource Danger}" FontSize="11.5" Margin="0,0,0,8" TextWrapping="Wrap" Visibility="Collapsed"/>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,6,0,0">
+                            <Button x:Name="CancelarConfigBtn" Content="Cancelar" Style="{StaticResource GhostButton}" MinWidth="84" Margin="0,0,8,0" Click="CancelarConfig_Click"/>
+                            <Button Content="Salvar" Style="{StaticResource SecondaryButton}" MinWidth="84" Click="SalvarConfig_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Border>
+
+            <!-- Criar certificado: sub-overlay, fica por cima de tudo (inclusive do ConfigOverlay) -->
+            <Border x:Name="CriarCertOverlay" Grid.Row="0" Grid.RowSpan="3" CornerRadius="12"
+                    Background="#CC0F1319" Visibility="Collapsed">
+                <Border Background="White" CornerRadius="14" Padding="22,20" MaxWidth="400"
+                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="24" ShadowDepth="6" Opacity="0.3" Color="#000000"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <TextBlock Text="Criar certificado novo" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,2"/>
+                        <TextBlock Text="Gera um certificado autoassinado de assinatura de c&#243;digo, v&#225;lido pelo per&#237;odo escolhido." FontSize="12" Foreground="{StaticResource TextMuted}" Margin="0,0,0,14" TextWrapping="Wrap"/>
+
+                        <TextBlock Text="Nome (CN)" FontSize="11.5" Foreground="{StaticResource TextMuted}" Margin="0,0,0,4"/>
+                        <TextBox x:Name="NovoCertNomeBox" Padding="8,7" FontSize="12" BorderBrush="#D9DEE8" Margin="0,0,0,10" TextChanged="NovoCertNomeBox_TextChanged"/>
+
+                        <TextBlock Text="Identificador do arquivo" FontSize="11.5" Foreground="{StaticResource TextMuted}" Margin="0,0,0,4"/>
+                        <TextBox x:Name="NovoCertSufixoBox" Padding="8,7" FontSize="12" BorderBrush="#D9DEE8" Margin="0,0,0,10" TextChanged="NovoCertSufixoBox_TextChanged"/>
+
+                        <TextBlock Text="Validade (anos)" FontSize="11.5" Foreground="{StaticResource TextMuted}" Margin="0,0,0,4"/>
+                        <TextBox x:Name="NovoCertAnosBox" Text="5" Padding="8,7" FontSize="12" BorderBrush="#D9DEE8" Margin="0,0,0,10"/>
+
+                        <TextBlock Text="Nova senha" FontSize="11.5" Foreground="{StaticResource TextMuted}" Margin="0,0,0,4"/>
+                        <PasswordBox x:Name="NovoCertSenhaBox" Padding="8,7" FontSize="12" BorderBrush="#D9DEE8" Margin="0,0,0,10"/>
+
+                        <TextBlock Text="Confirmar senha" FontSize="11.5" Foreground="{StaticResource TextMuted}" Margin="0,0,0,4"/>
+                        <PasswordBox x:Name="NovoCertSenhaConfirmaBox" Padding="8,7" FontSize="12" BorderBrush="#D9DEE8" Margin="0,0,0,4"/>
+
+                        <TextBlock x:Name="NovoCertDestino" FontSize="10.5" Foreground="{StaticResource TextMuted}" Margin="0,0,0,10" TextWrapping="Wrap"/>
+
+                        <TextBlock x:Name="NovoCertErro" Foreground="{StaticResource Danger}" FontSize="11.5" Margin="0,0,0,8" TextWrapping="Wrap" Visibility="Collapsed"/>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,4,0,0">
+                            <Button Content="Cancelar" Style="{StaticResource GhostButton}" MinWidth="84" Margin="0,0,8,0" Click="CancelarCriarCertificado_Click"/>
+                            <Button Content="Criar" Style="{StaticResource SecondaryButton}" MinWidth="84" Click="CriarCertificado_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Border>
+
+            <!-- Confirmacao de confianca: overlay proprio do app, para nunca se confundir com alerta nativo do Windows -->
+            <Border x:Name="ConfiarOverlay" Grid.Row="0" Grid.RowSpan="3" CornerRadius="12"
+                    Background="#CC0F1319" Visibility="Collapsed">
+                <Border Background="White" CornerRadius="14" Padding="22,20" MaxWidth="400"
+                        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="24" ShadowDepth="6" Opacity="0.3" Color="#000000"/>
+                    </Border.Effect>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <Border Width="26" Height="26" CornerRadius="7" ClipToBounds="True">
+                                <Image Source="app.ico" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"/>
+                            </Border>
+                            <TextBlock Text="Assinador Digital" FontSize="11.5" Foreground="{StaticResource TextMuted}" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                        </StackPanel>
+
+                        <TextBlock x:Name="ConfiarTitulo" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,10" TextWrapping="Wrap"/>
+                        <TextBlock x:Name="ConfiarMensagem" FontSize="12.5" Foreground="#3A3F4B" Margin="0,0,0,16" TextWrapping="Wrap"/>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Content="Não" Style="{StaticResource GhostButton}" MinWidth="84" Margin="0,0,8,0" Click="ConfiarNao_Click"/>
+                            <Button Content="Sim, adicionar" Style="{StaticResource SecondaryButton}" MinWidth="110" Click="ConfiarSim_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Border>
+        </Grid>
+    </Border>
+</Window>
