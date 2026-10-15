@@ -1,4 +1,4 @@
-# 🔏 assinador-authenticode: Assinador Digital para Windows
+# 🔏 Assinador Digital para Windows
 
 Assina digitalmente executáveis, bibliotecas e instaladores do Windows (.exe, .dll, .msi, .ocx, .cab) com certificado A1, sem abrir o prompt de comando.
 
