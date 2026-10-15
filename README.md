@@ -40,7 +40,7 @@ O app não bloqueia nenhuma extensão. A tabela mostra o que foi testado e é su
 
 - Windows 10 ou 11
 - [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/download) 
-**Obs:** Há também a possibilidade de compilar o executável em release com o runtime do .NET 10 embutido (**self-contained**), neste caso, não será preciso instalar o .NET na máquina
+  **Obs:** Há também a possibilidade de compilar o executável em release com o runtime do .NET 10 embutido (**self-contained**), neste caso, não será preciso instalar o .NET na máquina
 - `signtool.exe` (vem com o Windows SDK)
 - Certificado de assinatura de código A1 (`.pfx`) ou criar pelo próprio app 
 
