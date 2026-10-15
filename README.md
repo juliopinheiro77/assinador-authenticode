@@ -67,4 +67,4 @@ Nenhum certificado, senha ou arquivo assinado de cliente faz parte deste reposit
 
 ## Autor
 
-Júlio Pinheiro · [portfólio](https://juliopinheiro77.github.io) · [LinkedIn](https://linkedin.com/in/julio-pinheiro-5a521a137)
+Júlio Pinheiro · [portfólio](https://juliopinheiro77.github.io/portfolio) · [LinkedIn](https://linkedin.com/in/julio-pinheiro-5a521a137)
