@@ -1,4 +1,5 @@
-# 🔏 assinador-authenticode: Assinador Digital para Windows
+# 🔏 assinador-authenticode: 
+#    Assinador Digital para Windows
 
 Assina digitalmente executáveis, bibliotecas e instaladores do Windows (.exe, .dll, .msi, .ocx, .cab) com certificado A1, sem abrir o prompt de comando.
 
@@ -19,8 +20,8 @@ Eu assinava cada build no prompt de comando, montando a linha do `signtool` com 
 - Assinatura Authenticode usando o `signtool` do Windows SDK
 - Arrastar e soltar arquivos na janela
 - Certificado A1 (`.pfx` / `.p12`): caminho e senha configurados uma vez
-- Crie seu certificado auto assinado válido diretamente pelo app, com opção de quantos anos de válidade deseja que ele tenha 
-- Importe a cadeia para a pasta de confiáveis do windows com um clique diretamente pelo app
+- Geração de certificado autoassinado pelo próprio app, com validade configurável em anos
+- Instalação da cadeia de certificados no repositório de Autoridades Confiáveis do Windows em um clique
 - Senha guardada com **DPAPI**, protegida pelo usuário do Windows (nunca em texto puro)
 
 ## Formatos suportados
@@ -38,21 +39,11 @@ O app não bloqueia nenhuma extensão. A tabela mostra o que foi testado e é su
 
 ## Requisitos 
 
-### Para usar o app (baixar o `.exe` pronto)
-
 - Windows 10 ou 11
+- [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/download) 
+**Obs:** Há também a possibilidade de compilar o executável em release com o runtime do .NET 10 embutido (**self-contained**), neste caso, não será preciso instalar o .NET na máquina
 - `signtool.exe` (vem com o Windows SDK)
-- Certificado de assinatura de código A1 (`.pfx`)
-
-O executável distribuído nas Releases é **self-contained**: já traz o runtime do .NET 10 embutido (~130 MB). Não é preciso instalar o .NET na máquina.
-
-### Para compilar do zero
-
-- Windows 10 ou 11
-- [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/download)
-- `signtool.exe` (vem com o Windows SDK)
-- Certificado de assinatura de código A1 (`.pfx`)
-- Possibilidade de ter o executável com tamanho de apenas 1 MB em caso de não usar o runtime do .NET 10 embutido (**self-contained**)
+- Certificado de assinatura de código A1 (`.pfx`) ou criar pelo próprio app 
 
 ## Como usar
 
@@ -61,18 +52,30 @@ O executável distribuído nas Releases é **self-contained**: já traz o runtim
 3. Arraste o executável para a janela e mande assinar.
 4. Confira: botão direito no arquivo → Propriedades → Assinaturas Digitais.
 
+### Dica - Estrutura de pastas recomendada
+
+**Recomenda-se criar duas pastas na raiz do projeto:**
+assinador-authenticode/
+├── certificado/ # certificado A1 (.pfx / .p12) ou gerado pelo próprio app
+└── signtool/ # signtool.exe (Windows SDK)
+
+- **`certificado/`** — onde fica o certificado de assinatura. Pode ser um `.pfx` / `.p12` já existente ou um certificado autoassinado gerado pelo próprio app.
+- **`signtool/`** — onde fica o `signtool.exe` (vem com o Windows SDK).
+
+No app, basta apontar para essas duas pastas nas configurações. Os caminhos ficam salvos localmente. 
+
 ## Compilar
 
 ```bash
-git clone https://github.com/juliopinheiro77/[nome-do-repo]
-cd [nome-do-repo]
+git clone https://github.com/juliopinheiro77/assinador-authenticode
+cd assinador-authenticode
 dotnet build -c Release
 ```
 
 ## Roadmap
 
 - [ ] Certificado A3 (token USB ou cartão), assinando pelo certificado instalado no repositório do Windows
-- [ ] [Melhorias em análise...] 
+- [ ] Mais melhorias em análise...
 
 ## Segurança
 
