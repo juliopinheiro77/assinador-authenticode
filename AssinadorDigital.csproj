@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
@@ -32,3 +33,39 @@
   </ItemGroup>
 
 </Project>
+=======
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="app.ico" />
+  </ItemGroup>
+
+  <!-- Certificado e signtool viajam junto com o .exe em todo build/publish,
+       sempre achatados para certificado\CertificadoAutenticacao.pfx e signtool\signtool.exe
+       na pasta de saida, independente de como estao organizados aqui no fonte. -->
+  <ItemGroup>
+    <None Include="certificado\cert_auto_ass\CertificadoAutenticacao.pfx" Condition="Exists('certificado\cert_auto_ass\CertificadoAutenticacao.pfx')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>certificado\CertificadoAutenticacao.pfx</Link>
+    </None>
+    <None Include="signtool\signtool.exe" Condition="Exists('signtool\signtool.exe')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>signtool\signtool.exe</Link>
+    </None>
+  </ItemGroup>
+
+</Project>
+>>>>>>> ddcf62690f2dc54c7f5e0738a7c470807b8619c1
